@@ -14,8 +14,6 @@ GEMINI_API_KEY = os.environ['api_key']
 """
 At the command line, only need to run once to install the package via pip:
 
-hhh
-
 $ pip install google-generativeai
 """
 
