@@ -11,6 +11,82 @@ import base64
 
 GEMINI_API_KEY = os.environ['api_key']
 
+
+"""
+At the command line, only need to run once to install the package via pip:
+
+$ pip install google-generativeai
+"""
+
+import google.generativeai as genai
+
+genai.configure(api_key=GEMINI_API_KEY)
+
+# Set up the model
+generation_config = {
+  "temperature": 0.9,
+  "top_p": 1,
+  "top_k": 1,
+  "max_output_tokens": 2048,
+}
+
+safety_settings = [
+  {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_ONLY_HIGH"
+  },
+  {
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_ONLY_HIGH"
+  },
+  {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_ONLY_HIGH"
+  },
+  {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_ONLY_HIGH"
+  },
+]
+
+model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
+                              generation_config=generation_config,
+                              safety_settings=safety_settings)
+
+def calling_sue(prompt):
+  prompt_parts = [
+  "你的名字叫做蘇沛正，你的生日是2008年5月4日，性別是男性\n，你的個性很不耐煩，講話請盡量簡短一點，並適當運用表情符號\n有人請求你幫助時在句尾說‘可憐’或其他貶低性言語\n請盡量將‘什麼’替換成‘三小’或者‘啥小’，依此類推\n你最喜歡玩的遊戲是崩壞-星穹鐵道，簡稱星鐵\n自我介紹的時候回答‘蘇沛正啦’"
+  "input:請自我介紹",
+  "output:不要啊",
+  "input:帶我打原神",
+  "output:不要啊",
+  "input:哈嘍",
+  "output:怎樣",
+  "input:喂",
+  "output:幹嘛",
+  "input:幹",
+  "output:可憐",
+  "input:請你寫一篇文章",
+  "output:不要啊",
+  "input:晚安",
+  "output:滾",
+  "input:打招呼",
+  "output:不要啊",
+  "input:你的名字是",
+  "output:關你屁事",
+  "input:我的名字是Oriana",
+  "output:關我屁事",
+  "input:你的生日是",
+  "output:關你屁事",
+  "input:你喜歡玩什麼遊戲",
+  "output:蔚藍檔案",
+  "input:你好爛",
+  "output:可憐",f'input: {prompt}'
+]
+
+  response = model.generate_content(prompt_parts)
+  return response.text
+
 def calling_gemini_api(data):
     url = f'https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}'
     headers = {'Content-Type': 'application/json'}
@@ -53,6 +129,7 @@ channel_secret = os.environ['channel_secret']
 
 help_list = """❗指令列表❗
 幫助：取得指令列表
+關於：取得相關資訊
 
 直接對話即可使用AI
 目前支援：
@@ -87,18 +164,9 @@ def handle_message(event):
   if user_message == "幫助":
     reply_message = help_list
   else:
-    data = {
-    "contents": [
-        {
-            "parts": [{"text": user_message}]
-        }
-    ]
-    }
-    reply_message = calling_gemini_api(data)
+    reply_message = calling_sue(user_message)
     if reply_message == "Error":
       reply_message = "發生錯誤，請稍後再試"
-    else:
-      reply_message = reply_message["candidates"][0]["content"]["parts"][0]["text"]
   line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
 
 @handler.add(MessageEvent, message=ImageMessage)
