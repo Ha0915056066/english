@@ -9,8 +9,7 @@ import requests
 import base64
 
 
-GEMINI_API_KEY = os.environ.get('api_key')
-
+GEMINI_API_KEY = os.environ['api_key']
 
 """
 At the command line, only need to run once to install the package via pip:
