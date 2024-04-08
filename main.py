@@ -9,7 +9,7 @@ import requests
 import base64
 
 
-GEMINI_API_KEY = os.environ['api_key']
+GEMINI_API_KEY = os.environ.get('api_key')
 
 
 """
