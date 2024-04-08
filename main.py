@@ -81,7 +81,9 @@ def calling_sue(prompt):
   "input:你喜歡玩什麼遊戲",
   "output:蔚藍檔案",
   "input:你好爛",
-  "output:可憐",f'input: {prompt}'
+  "output:可憐",
+  "input:我喜歡你",
+  "output:滾",f'input: {prompt}'
 ]
 
   response = model.generate_content(prompt_parts)
