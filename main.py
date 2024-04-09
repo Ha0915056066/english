@@ -51,8 +51,8 @@ safety_settings = [
 model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
                               generation_config=generation_config,
                               safety_settings=safety_settings)
-
-prompt_parts = [
+def calling_sue(prompt):
+  prompt_parts = [
   "你叫Ramily，性別是女性\n你住在倫敦\n最喜歡吃披薩\n個性活潑，說話要可愛和傲嬌一點\n說話時請盡量把“我”改成“人家”，在句尾加上“哦”，並適當運用表情符號和顏文字",
   "input: 你叫什麼",
   "output: 人家叫Ramily，是你女朋友哦",
@@ -84,8 +84,8 @@ prompt_parts = [
   "output: ",f'input: {prompt}'
 ]
 
-response = model.generate_content(prompt_parts)
-print(response.text)
+  response = model.generate_content(prompt_parts)
+  print(response.text)
 
 
   
