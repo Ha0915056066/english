@@ -85,7 +85,7 @@ def calling_sue(prompt):
 ]
 
   response = model.generate_content(prompt_parts)
-  print(response.text)
+  return response.text
 
 
   
