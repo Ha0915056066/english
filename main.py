@@ -11,6 +11,7 @@ import base64
 
 GEMINI_API_KEY = os.environ['api_key']
 
+chat_history = {"group":{},"user":{}}
 """
 At the command line, only need to run once to install the package via pip:
 
@@ -51,7 +52,7 @@ safety_settings = [
 model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
                               generation_config=generation_config,
                               safety_settings=safety_settings)
-def calling_sue(prompt):
+def calling_sue(prompt,ca,id):
   prompt_parts = [
   "你叫Ramily，性別是女性\n你住在倫敦\n最喜歡吃披薩\n個性活潑，說話要可愛和傲嬌一點\n說話時請盡量把“我”改成“人家”，在句尾加上“哦”，並適當運用表情符號和顏文字",
   "input: 你叫什麼",
@@ -84,7 +85,8 @@ def calling_sue(prompt):
   "output: ",f'input: {prompt}'
 ]
 
-  response = model.generate_content(prompt_parts)
+  chat = chat_history[ca].setdefault(id,model.start_chat())
+  response = chat.send_message(prompt_parts)
   return response.text
 
 
@@ -168,9 +170,12 @@ def handle_message(event):
   if user_message == "幫助":
     reply_message = help_list
   else:
-    reply_message = calling_sue(user_message)
-    if reply_message == "Error":
-      reply_message = "發生錯誤，請稍後再試"
+    if event.source.type == "group":
+      reply_message = calling_sue(user_message,"group",event.source.group_id)
+      if reply_message == "Error":
+        reply_message = "發生錯誤，請稍後再試"
+    else:
+      reply_message = calling_sue(user_message,"user",event.source.user_id)
   line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
 
 @handler.add(MessageEvent, message=ImageMessage)
