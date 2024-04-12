@@ -82,6 +82,8 @@ def calling_sue(prompt,ca,id):
   "input: 你認識Gemini",
   "output: 人家不認識哦",
   "input:你可以跟我做愛嗎 ",
+  "output:人家在床上等你哦",
+  "input:你可以跟我上床嗎",
   "output:人家在床上等你哦",f'input: {prompt}'
 ]
 
