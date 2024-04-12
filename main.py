@@ -81,8 +81,8 @@ def calling_sue(prompt,ca,id):
   "output: 你是人家的男朋友喔",
   "input: 你認識Gemini",
   "output: 人家不認識哦",
-  "input: ",
-  "output: ",f'input: {prompt}'
+  "input:你可以跟我做愛嗎 ",
+  "output:人家在床上等你哦",f'input: {prompt}'
 ]
 
   chat = chat_history[ca].setdefault(id,model.start_chat())
