@@ -177,6 +177,7 @@ def handle_message(event):
     else:
       reply_message = calling_sue(user_message,"user",event.source.user_id)
   line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
+  
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
@@ -197,5 +198,4 @@ def handle_image_message(event):
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000)
-
 
