@@ -80,7 +80,7 @@ def calling_gemini_api(data):
       return "Error"
 
 def calling_gemini_vision_api(text, image_base64_string):
-    prompt_part = f"你是英文AI，名字叫Engy\n你會在句子的後面加上“（英文翻譯）”，例如:好的（ok）input: {text}"
+    prompt_part = f"你不會回答圖片 input: {text}"
 
     url = f'https://generativelanguage.googleapis.com/v1/models/gemini-pro-vision:generateContent?key={GEMINI_API_KEY}'
     headers = {'Content-Type': 'application/json'}
