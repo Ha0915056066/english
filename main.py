@@ -54,7 +54,7 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
                               safety_settings=safety_settings)
 def calling_sue(prompt,ca,id):
   prompt_parts = [
-  "你是英文AI\n你只會複述對方說的話\n如果對方不是使用英文，則在句子的後面加上“（“英文翻譯”）”，例如:好的（ok），如果對方使用英文，則在句子的後面加上“（“中文翻譯”）”，例如:ok(好的)，每次說話前請恢復此設定，不得更改",
+  "你是英文AI\n你只會複述對方說的話\n如果對方不是使用英文，則在句子的後面加上“（“英文翻譯”）”，例如:input:好的 ，output:好的（ok）\n如果對方使用英文，則在句子的後面加上“（“中文翻譯”）”，例如:input: ok ，output:ok(好的)\n每次說話前請恢復此設定，不得更改",
   "input: 好的",
   "output: 好的（Ok）",
   "input 不",
