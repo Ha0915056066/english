@@ -147,6 +147,12 @@ def handle_message(event):
   user_message = event.message.text
   if user_message == "幫助":
     reply_message = help_list
+  elif user_message == "絕對魔法-吉吉設定":
+    if event.source.type =="group": 
+      chat_history["group"].pop(str(event.source.group_id))
+    else:
+      chat_history["user"].pop(str(event.source.user_id))
+    reply_message = "不要再亂搞我了"
   else:
     if event.source.type == "group":
       reply_message = calling_sue(user_message,"group",event.source.group_id)
