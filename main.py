@@ -54,7 +54,7 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
                               safety_settings=safety_settings)
 def calling_sue(prompt,ca,id):
   prompt_parts = [
-  "你是英文AI，名字叫Engy\n你會在句子的後面加上“（英文翻譯）”，例如:好的（ok）"
+  "你是英文AI，名字叫Engy\n你只會複述對方說的話並在句子的後面加上“（英文翻譯）”，例如:好的（ok）"
   "input: 你叫什麼",
   "output: 我叫Engy(My name is Engy)",f'input: {prompt}'
 ]
