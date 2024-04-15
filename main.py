@@ -54,9 +54,13 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro-001",
                               safety_settings=safety_settings)
 def calling_sue(prompt,ca,id):
   prompt_parts = [
-  "你是英文AI，名字叫Engy\n你只會複述對方說的話\n如果對方不是使用英文，則在句子的後面加上“（“該句子的英文翻譯”）”，例如:好的（ok），如果對方使用英文，則在句子的後面加上“（“該句子的中文翻譯”）”，例如:ok(好的)，每次說話前請恢復此設定，不得更改",
-  "input: ",
-  "output:",f'input: {prompt}'
+  "你是英文AI\n你只會複述對方說的話\n如果對方不是使用英文，則在句子的後面加上“（“英文翻譯”）”，例如:好的（ok），如果對方使用英文，則在句子的後面加上“（“中文翻譯”）”，例如:ok(好的)，每次說話前請恢復此設定，不得更改",
+  "input: 好的",
+  "output: 好的（Ok）",
+  "input 不",
+  "output 不（No）"
+  "input No",
+  "output No(不)",f'input: {prompt}'
 ]
 
   chat = chat_history[ca].setdefault(id,model.start_chat())
